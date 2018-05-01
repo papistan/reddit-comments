@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Comment from "./Comment/comment";
-import { DATA, USERS } from "../../utils/data";
+
 
 import "./comments.css";
 
@@ -8,16 +8,25 @@ class Comments extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      users: USERS,
-      comments: DATA
+      users: props.USERS,
+      comments: props.DATA
     };
+
+    this.onUpvote = props.onUpvote.bind(this);
+    this.onDownvote = props.onDownvote.bind(this);
   }
 
   renderComments() {
     let { comments } = this.state;
 
     comments.map(({ id, points, createdAt, text, user, comments }) => {
-      return <Comment />;
+      return (
+        <Comment 
+            data={comments}
+            onUpvote={this.onUpvote}
+            onDownvote={this.onDownvote}
+        />)
+      ;
     });
   }
 
