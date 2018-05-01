@@ -1,15 +1,14 @@
 import React, { Component } from "react";
 import Comment from "./Comment/comment";
 
-
 import "./comments.css";
 
 class Comments extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      users: props.USERS,
-      comments: props.DATA
+      users: props.users,
+      comments: props.data
     };
 
     this.onUpvote = props.onUpvote.bind(this);
@@ -17,16 +16,16 @@ class Comments extends Component {
   }
 
   renderComments() {
-    let { comments } = this.state;
-
-    comments.map(({ id, points, createdAt, text, user, comments }) => {
+    let { comments, users } = this.state;
+    return comments.map(comment => {
       return (
-        <Comment 
-            data={comments}
-            onUpvote={this.onUpvote}
-            onDownvote={this.onDownvote}
-        />)
-      ;
+        <Comment
+          comment={comment}
+          users={users}
+          onUpvote={this.onUpvote}
+          onDownvote={this.onDownvote}
+        />
+      );
     });
   }
 
@@ -34,7 +33,6 @@ class Comments extends Component {
     return (
       <div className="Comments">
         <h5> Comments </h5>
-
         {this.renderComments()}
       </div>
     );
