@@ -4,38 +4,25 @@ import Comment from "./Comment/comment";
 import "./comments.css";
 
 class Comments extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      users: props.users,
-      comments: props.data
-    };
-
-    this.onUpvote = props.onUpvote.bind(this);
-    this.onDownvote = props.onDownvote.bind(this);
-  }
-
   renderComments() {
-    let { comments, users } = this.state;
+    let { users } = this.props;
+    let comments = this.props.data;
+
     return comments.map(comment => {
       return (
         <Comment
+          key={comment.id}
           comment={comment}
           users={users}
-          onUpvote={this.onUpvote}
-          onDownvote={this.onDownvote}
+          onUpvote={this.props.onUpvote}
+          onDownvote={this.props.onDownvote}
         />
       );
     });
   }
 
   render() {
-    return (
-      <div className="Comments">
-        <h5> Comments </h5>
-        {this.renderComments()}
-      </div>
-    );
+    return <div className="comments">{this.renderComments()}</div>;
   }
 }
 

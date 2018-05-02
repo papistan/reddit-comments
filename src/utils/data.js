@@ -14,7 +14,7 @@ export const DATA = [
     id: 123,
     points: 20,
     createdAt: "2018-03-28T20:15:00.000-04:00",
-    text: "Lorem Ipsum",
+    text: "Lorem IpsumVestibulum lorem purus",
     user: 1,
     comments: [
       {
@@ -52,7 +52,7 @@ export const DATA = [
     id: 2,
     points: -2,
     createdAt: "2018-03-28T20:12:00.000-04:00",
-    text: "Lorem Ipsum",
+    text: "Vestibulum lorem purusLorem IpsumVestibulum lorem purus",
     user: 2,
     comments: [
       // ...

@@ -1,32 +1,35 @@
 import React, { Component } from "react";
+import Comments from "../comments";
+import { USERS } from "../../../utils/data";
 
 import "./comment.css";
 
 class Comment extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      points: props.comment.votes,
-      createdAt: props.comment.createdAt,
-      text: props.comment.text,
-      user: props.comment.user,
-      comments: props.comment.comments
-    };
-
-    this.onUpvote = props.onUpvote.bind(this);
-    this.onDownvote = props.onDownvote.bind(this);
-  }
-
   render() {
+    let { points, user, createdAt, text } = this.props.comment;
     return (
-      <div className="Comment">
-        <h5> THIS IS a Comment </h5>
-        <button className="upVote" onClick={this.onUpvote}>
-          ^
-        </button>
-        <button className="downVote" onClick={this.onDownvote}>
-          V
-        </button>
+      <div className="comment">
+        <div className="comment-details">
+          <button className="upVote" onClick={this.onUpvote}>
+            ^
+          </button>
+          <button className="downVote" onClick={this.onDownvote}>
+            V
+          </button>
+          <p>{points} votes</p>
+          <p className="commment-text">{text}</p>
+          <p>
+            Created at {createdAt} by user {user}
+          </p>
+        </div>
+        <div className="child-comments">
+          <Comments
+            data={this.props.comment.comments}
+            users={USERS}
+            onUpvote={this.onUpvote}
+            onDownvote={this.onDownvote}
+          />
+        </div>
       </div>
     );
   }
