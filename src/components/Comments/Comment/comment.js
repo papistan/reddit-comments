@@ -1,12 +1,15 @@
 import React, { Component } from "react";
 import Comments from "../comments";
 import { USERS } from "../../../utils/data";
+import { timeConversion } from "../../../utils/helpers";
 
 import "./comment.css";
 
 const Comment = props => {
-  let { id, points, user, createdAt, text, comments } = props.comment;
+  let { id, points, createdAt, user, text, comments } = props.comment;
   let data = [props.data, comments];
+  let userObject = props.users.filter(person => person.id === user);
+  let timeDifferenceInMilliseconds = Date.now() - new Date(createdAt);
 
   return (
     <div className="comment">
@@ -27,13 +30,13 @@ const Comment = props => {
         >
           V
         </button>
-        <p>
-          {points} votes for comment id {id}
+        <p className="username">{userObject[0].username}</p>
+        <p className="points"> {points} points </p>
+        <p className="time">
+          {" "}
+          {timeConversion(timeDifferenceInMilliseconds)} ago
         </p>
         <p className="commment-text">{text}</p>
-        <p>
-          Created at {createdAt} by user {user}
-        </p>
       </div>
       <div className="child-comments">
         <Comments
