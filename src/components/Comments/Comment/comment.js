@@ -4,35 +4,47 @@ import { USERS } from "../../../utils/data";
 
 import "./comment.css";
 
-class Comment extends Component {
-  render() {
-    let { points, user, createdAt, text } = this.props.comment;
-    return (
-      <div className="comment">
-        <div className="comment-details">
-          <button className="upVote" onClick={this.onUpvote}>
-            ^
-          </button>
-          <button className="downVote" onClick={this.onDownvote}>
-            V
-          </button>
-          <p>{points} votes</p>
-          <p className="commment-text">{text}</p>
-          <p>
-            Created at {createdAt} by user {user}
-          </p>
-        </div>
-        <div className="child-comments">
-          <Comments
-            data={this.props.comment.comments}
-            users={USERS}
-            onUpvote={this.onUpvote}
-            onDownvote={this.onDownvote}
-          />
-        </div>
+const Comment = props => {
+  let { id, points, user, createdAt, text, comments } = props.comment;
+  let data = [props.data, comments];
+
+  return (
+    <div className="comment">
+      <div className="comment-details">
+        <button
+          className="upVote"
+          onClick={() => {
+            props.onUpvote(id);
+          }}
+        >
+          ^
+        </button>
+        <button
+          className="downVote"
+          onClick={() => {
+            props.onDownvote(id);
+          }}
+        >
+          V
+        </button>
+        <p>
+          {points} votes for comment id {id}
+        </p>
+        <p className="commment-text">{text}</p>
+        <p>
+          Created at {createdAt} by user {user}
+        </p>
       </div>
-    );
-  }
-}
+      <div className="child-comments">
+        <Comments
+          data={data}
+          users={USERS}
+          onUpvote={props.onUpvote}
+          onDownvote={props.onDownvote}
+        />
+      </div>
+    </div>
+  );
+};
 
 export default Comment;

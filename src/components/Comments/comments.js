@@ -1,29 +1,31 @@
-import React, { Component } from "react";
+import React from "react";
 import Comment from "./Comment/comment";
 
 import "./comments.css";
 
-class Comments extends Component {
-  renderComments() {
-    let { users } = this.props;
-    let comments = this.props.data;
+const Comments = props => {
+  let { users } = props;
+  let topNodes = props.data[1];
+  let data = props.data[0];
 
-    return comments.map(comment => {
+  let renderComments = function() {
+    console.log(topNodes);
+    return topNodes.map(id => {
+      let comment = data[id];
       return (
         <Comment
           key={comment.id}
           comment={comment}
+          data={data}
           users={users}
-          onUpvote={this.props.onUpvote}
-          onDownvote={this.props.onDownvote}
+          onUpvote={props.onUpvote}
+          onDownvote={props.onDownvote}
         />
       );
     });
-  }
+  };
 
-  render() {
-    return <div className="comments">{this.renderComments()}</div>;
-  }
-}
+  return <div className="comments">{renderComments()}</div>;
+};
 
 export default Comments;
