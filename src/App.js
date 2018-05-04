@@ -1,40 +1,8 @@
 import React, { Component } from "react";
 import Comments from "./components/Comments/comments";
 import { DATA, USERS } from "./utils/data";
+import { dataNormalizer, topNodes } from "./utils/helpers";
 import "./App.css";
-
-const dataNormalizer = (data, object = {}) => {
-  let newData = object;
-
-  for (let i = 0; i < data.length; i++) {
-    let comment = data[i];
-    newData[comment.id] = {
-      id: comment.id,
-      points: comment.points,
-      createdAt: comment.createdAt,
-      text: comment.text,
-      user: comment.user,
-      comments: []
-    };
-    if (comment.comments.length > 0) {
-      let childComments = comment.comments;
-
-      for (let z = 0; z < childComments.length; z++) {
-        newData[comment.id].comments.push(parseInt(childComments[z].id));
-      }
-      newData = dataNormalizer(comment.comments, newData);
-    }
-  }
-  return newData;
-};
-
-const topNodes = data => {
-  let topNodes = [];
-  data.forEach(node => {
-    topNodes.push(node.id);
-  });
-  return topNodes;
-};
 
 class App extends Component {
   state = {
@@ -69,8 +37,8 @@ class App extends Component {
   render() {
     let { data, users } = this.state;
     return (
-      <div className="App">
-        <h1>Reddit-like Comments</h1>
+      <div>
+        <h1 className="title">Reddit-like Comments</h1>
         <Comments
           data={data}
           users={users}

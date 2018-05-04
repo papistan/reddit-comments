@@ -17,3 +17,36 @@ export const timeConversion = millisec => {
     return days + " Days";
   }
 };
+
+export const dataNormalizer = (data, object = {}) => {
+  let newData = object;
+
+  for (let i = 0; i < data.length; i++) {
+    let comment = data[i];
+    newData[comment.id] = {
+      id: comment.id,
+      points: comment.points,
+      createdAt: comment.createdAt,
+      text: comment.text,
+      user: comment.user,
+      comments: []
+    };
+    if (comment.comments.length > 0) {
+      let childComments = comment.comments;
+
+      for (let z = 0; z < childComments.length; z++) {
+        newData[comment.id].comments.push(parseInt(childComments[z].id));
+      }
+      newData = dataNormalizer(comment.comments, newData);
+    }
+  }
+  return newData;
+};
+
+export const topNodes = data => {
+  let topNodes = [];
+  data.forEach(node => {
+    topNodes.push(node.id);
+  });
+  return topNodes;
+};
