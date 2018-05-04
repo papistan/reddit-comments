@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import Comments from "../comments";
 import { USERS } from "../../../utils/data";
 import { timeConversion } from "../../../utils/helpers";
@@ -7,7 +7,6 @@ import "./comment.css";
 
 const Comment = props => {
   let { id, points, createdAt, user, text, comments } = props.comment;
-  let data = [props.data, comments];
   let userObject = props.users.filter(person => person.id === user);
   let timeDifferenceInMilliseconds = Date.now() - new Date(createdAt);
 
@@ -47,7 +46,7 @@ const Comment = props => {
       </div>
       <div className="child-comments">
         <Comments
-          data={data}
+          data={[props.data, comments]}
           users={USERS}
           onUpvote={props.onUpvote}
           onDownvote={props.onDownvote}
