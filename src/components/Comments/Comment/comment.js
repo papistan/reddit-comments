@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import Comments from "../comments";
 import { USERS } from "../../../utils/data";
 import { timeConversion } from "../../../utils/helpers";
@@ -54,6 +55,14 @@ const Comment = props => {
       </div>
     </div>
   );
+};
+
+Comment.propTypes = {
+  data: PropTypes.object,
+  users: PropTypes.array,
+  comment: PropTypes.object,
+  onUpvote: PropTypes.func,
+  onDownvote: PropTypes.func
 };
 
 export default Comment;
